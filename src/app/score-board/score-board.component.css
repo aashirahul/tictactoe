@@ -1,0 +1,18 @@
+.score-board{
+    width: 200px;
+    height: 270px;
+    text-align: center;
+    background: green;
+}
+.board-heading{
+    width: 200px;
+    height: 10px;
+}
+
+.player{
+    display: inline-block;
+}
+.score{
+    display: inline-block;
+}
+

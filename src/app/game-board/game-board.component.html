@@ -1,18 +1,4 @@
-  <div class="board">
-    <div class="rowOne">
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-    </div>
-    <div class="rowTwo">
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-    </div>
-    <div class="rowThree">
-      <div class="square"></div>
-      <div class="square"></div>
-      <div class="square"></div>
-    </div> 
-  </div>
 
+<div class="board" *ngFor="let row of [0,1,2]">
+    <app-cell (click)="findCell(row, col)" [value]="gameArray[row][col]" *ngFor="let col of [0,1,2]">
+    </app-cell></div>
