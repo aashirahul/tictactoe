@@ -9,6 +9,9 @@ export class GameBoardComponent implements OnInit {
 
   @Output()
   displayWinner: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  emitScore: EventEmitter<any> = new EventEmitter();
  
   gameArray:any[];
   currentPlayer: string="X";
@@ -20,25 +23,23 @@ export class GameBoardComponent implements OnInit {
     this.gameArray[row][col]=this.currentPlayer;
     this.currentPlayer = this.currentPlayer =='X' ? 'O':'X';
     this.gameStatus=this.checkGame();
-    this.getScore();
+    this.updateScore();
     this.popMessage();
-    console.log(this.gameStatus);
   }
 
-  getScore(){
+  updateScore(){
     if(this.gameStatus =='X'){
       this.playerXScore += 1;
     }
     if(this.gameStatus == 'O'){
       this.playerOScore +=1;
     }
-    console.log(this.playerXScore);
   }
 
   popMessage(){
     if(this.gameStatus!=null){
       this.displayWinner.emit(this.gameStatus);
-    }    
+    }  
   }
 
   checkGame(){

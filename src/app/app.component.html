@@ -3,7 +3,7 @@
    Tic-Tac-Toe!
   </h1>
 </div>
- <div class="column"><app-game-board (displayWinner)="getWinner($event)"></app-game-board></div>
- <div><app-game-result *ngIf="this.showMessage" [winner]=this.winner (playAgain)="onPlayAgain()"></app-game-result></div>
+ <div class="overlay"><app-game-board (displayWinner)="getWinner($event)"></app-game-board></div>
+ <div class="popUp"><app-game-result *ngIf="this.showMessage" [winner]=this.winner (playAgain)="onPlayAgain()"></app-game-result></div>
 
   

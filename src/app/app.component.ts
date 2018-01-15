@@ -15,12 +15,13 @@ export class AppComponent {
 
   showMessage:boolean=false;
   winner:any;
+  score:any;
 
   getWinner(event){
     this.winner =event;
     this.showMessage=true;
-    console.log(this.winner);
   }
+
 
   onPlayAgain(){
     this.gameBoard.resetGame();

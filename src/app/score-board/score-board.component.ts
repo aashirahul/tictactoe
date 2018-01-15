@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-score-board',
@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class ScoreBoardComponent implements OnInit {
 
   constructor() { }
+
+  @Input()
+  playerXScore:any;
+
+  @Input()
+  playerOScore:any;
+
 
   ngOnInit() {
   }
