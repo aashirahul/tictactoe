@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-game-board',
@@ -7,33 +7,64 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 })
 export class GameBoardComponent implements OnInit {
 
-  constructor() { }
-
-  rowNo: number;
-  colNo: number;
+  @Output()
+  displayWinner: EventEmitter<any> = new EventEmitter();
+ 
   gameArray:any[];
   currentPlayer: string="X";
   playerXScore: number=0;
   playerOScore: number=0;
-  cellValue:any;
-  
-
+  gameStatus:any;
   
   findCell(row,col){
-    this.colNo = col;
-    this.rowNo = row;
-    this.gameArray[this.rowNo][this.colNo]=this.currentPlayer;
+    this.gameArray[row][col]=this.currentPlayer;
     this.currentPlayer = this.currentPlayer =='X' ? 'O':'X';
-    var winConditionOne=this.checkRow();
-    var winCOnditionTwo=this.checkCol();
-    var winConditionThree=this.checkDiagonalOne();
-    var winConditionFour=this.checkDiagonalTwo();
-    console.log(winConditionFour);
+    this.gameStatus=this.checkGame();
+    this.getScore();
+    this.popMessage();
+    console.log(this.gameStatus);
   }
+
+  getScore(){
+    if(this.gameStatus =='X'){
+      this.playerXScore += 1;
+    }
+    if(this.gameStatus == 'O'){
+      this.playerOScore +=1;
+    }
+    console.log(this.playerXScore);
+  }
+
+  popMessage(){
+    if(this.gameStatus!=null){
+      this.displayWinner.emit(this.gameStatus);
+    }    
+  }
+
+  checkGame(){
+    var winnerConditionOne=this.checkRow();
+    var winnerConditionTwo=this.checkCol();
+    var winnerConditionThree=this.checkDiagonalOne();
+    var winnerConditionFour=this.checkDiagonalTwo();
+    if(winnerConditionOne){
+      return winnerConditionOne;
+    }
+    if(winnerConditionTwo){
+      return winnerConditionTwo;
+    }
+    if(winnerConditionThree){
+      return winnerConditionThree;
+    }
+    if(winnerConditionFour){
+      return winnerConditionFour;
+    }
+    return null;
+  }
+
   checkRow(){
     for(var row=0; row<=2;row++){
       var rowFirstValue = this.gameArray[row][0];
-      if(rowFirstValue == null || rowFirstValue == undefined) {
+      if(!rowFirstValue) {
         continue;
       }
       for(var col=0; col<=2; col++){
@@ -41,16 +72,16 @@ export class GameBoardComponent implements OnInit {
           break;
         }
         if(col==2){
-          return true;
+          return rowFirstValue;
         }
       }
     }
-    return false;
+    return null;
   }
   checkCol(){
     for(var col=0;col<=2;col++){
       var colFirstValue = this.gameArray[0][col];
-      if(colFirstValue == null || colFirstValue == undefined) {
+      if(!colFirstValue ) {
         continue;
     }
       for(var row=0;row<=2;row++){
@@ -58,51 +89,51 @@ export class GameBoardComponent implements OnInit {
           break;
         }
         if(row==2){
-        return true;
+        return colFirstValue;
         }
       }
     }
-    return false;
+    return null;
   }
   checkDiagonalOne(){
     for(var dia=0; dia<=2;dia++){
       var diagonalFirstValue =this.gameArray[0][0];
-      if(diagonalFirstValue == null || diagonalFirstValue == undefined) {
+      if(!diagonalFirstValue) {
         continue;
       }
       if(this.gameArray[dia][dia]!=diagonalFirstValue){
           break;
       }
       if(dia==2){
-        return true;
+        return diagonalFirstValue;
       }
     }
-    return false;
+    return null;
   }
    checkDiagonalTwo(){
     for(var dia=0; dia<=2;dia++){
       var diagonalFirstValue =this.gameArray[1][1];
-      if(diagonalFirstValue == null || diagonalFirstValue == undefined) {
+      if(!diagonalFirstValue) {
         continue;
       }
       if(this.gameArray[dia][2-dia]!=diagonalFirstValue){
           break;
       }
       if(dia==2){
-        return true;
+        return diagonalFirstValue;
       }
     }
-    return false;
+    return null;
   }
-
-
-
  
   ngOnInit() {
+    this.resetGame();
+  }
+
+  resetGame() {
     this.gameArray = Array(3);
     for(var i=0; i<3;i++){
     this.gameArray[i]= Array(3);
     }
   }
-
 }

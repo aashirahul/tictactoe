@@ -1,4 +1,4 @@
-
-<div class="board" *ngFor="let row of [0,1,2]">
+<div class="row" *ngFor="let row of [0,1,2]">
     <app-cell (click)="findCell(row, col)" [value]="gameArray[row][col]" *ngFor="let col of [0,1,2]">
-    </app-cell></div>
+    </app-cell>
+ </div>

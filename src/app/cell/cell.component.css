@@ -1,6 +1,9 @@
+:host:not(:last-child) {
+    margin-right: 5px;
+}
+
 .square{
     width: 90px;
     height: 90px;
     background:red;
-    display: inline-block;
 }
