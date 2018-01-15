@@ -20,11 +20,13 @@ export class GameBoardComponent implements OnInit {
   gameStatus:any;
   
   findCell(row,col){
-    this.gameArray[row][col]=this.currentPlayer;
-    this.currentPlayer = this.currentPlayer =='X' ? 'O':'X';
-    this.gameStatus=this.checkGame();
-    this.updateScore();
-    this.popMessage();
+    if(!this.gameArray[row][col]) {
+      this.gameArray[row][col]=this.currentPlayer;
+      this.currentPlayer = this.currentPlayer =='X' ? 'O':'X';
+      this.gameStatus=this.checkGame();
+      this.updateScore();
+      this.popMessage();
+    }
   }
 
   updateScore(){
@@ -47,6 +49,7 @@ export class GameBoardComponent implements OnInit {
     var winnerConditionTwo=this.checkCol();
     var winnerConditionThree=this.checkDiagonalOne();
     var winnerConditionFour=this.checkDiagonalTwo();
+    var drawCondition = this.checkDraw();
     if(winnerConditionOne){
       return winnerConditionOne;
     }
@@ -58,6 +61,9 @@ export class GameBoardComponent implements OnInit {
     }
     if(winnerConditionFour){
       return winnerConditionFour;
+    }
+    if(drawCondition){
+      return "draw";
     }
     return null;
   }
@@ -125,6 +131,18 @@ export class GameBoardComponent implements OnInit {
       }
     }
     return null;
+  }
+
+  checkDraw() {
+    for(var row = 0; row < 3; row++) {
+      for(var col = 0; col < 3; col++) {
+        if(!this.gameArray[row][col]) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
  
   ngOnInit() {

@@ -5,5 +5,12 @@
 .square{
     width: 90px;
     height: 90px;
-    background:red;
+    background:lightgrey;
+    border-radius:5px;
+    display: flex;
+}
+.square-value{
+    margin: auto;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
 }

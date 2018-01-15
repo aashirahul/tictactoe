@@ -1,6 +1,11 @@
 <div class="result-container">
   <div>
-    <p> Player {{this.winner}} Wins!!!</p>
+    <div class="comment-box">
+      <p *ngIf="this.winner != 'draw'"> Player {{this.winner}} Wins!!!</p>
+      <p *ngIf="this.winner == 'draw'"> Game was a draw</p>
+    </div>
+    <div class="button">
+      <div (click)="onPlayAgain()"> Play Again</div>
+    </div>
   </div>
-  <div (click)="onPlayAgain()"> Play Again</div>
 </div>
